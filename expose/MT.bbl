@@ -1,0 +1,14 @@
+\begin{thebibliography}{WF01}
+
+\bibitem[CL14]{ClLa2014}
+\textsc{Cleve}, J{\"u}rgen ; \textsc{L{\"a}mmel}, Uwe:
+\newblock \emph{Data Mining}.
+\newblock 1. {A}uflage.
+\newblock Oldenbourg, 2014
+
+\bibitem[WF01]{WiFr2001}
+\textsc{Witten}, Ian~H. ; \textsc{Frank}, Eibe:
+\newblock \emph{Data Mining}.
+\newblock Hanser Verlag, 2001
+
+\end{thebibliography}

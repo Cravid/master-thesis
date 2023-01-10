@@ -1,0 +1,19 @@
+\chapter{Ziele und Grenzen}
+
+\section{Zielsetzung}
+
+Im Rahmen dieser Arbeit soll ein ROP Compiler entwickelt werden, welcher als Eingaben auf zur Verfügung stehender Gadgets sowie vordefiniertem Code basierend eine Verkettung der Gadgets automatisiert durchführen soll. Die zur Verkettung benötigte Semantik sowie die zur Eingabe benötigten Formatregeln sollen ebenfalls innerhalb dieser Arbeit definiert und implementiert werden.\\
+
+Ziel ist die Erstellung eines Proof-of-concept (PoC), welcher auf Basis einer zuvor ausgewählten spezifischen Prozessorarchitektur (X64, ARM32 oder ARM64) die grundsätzliche Umsetzbarkeit demonstrieren und Ausgangspunkt für weitere Arbeiten bilden soll.\\
+
+Außerdem soll der Grad der Berechenbarkeit erörtert und gezeigt werden, dass - abhängig vom zugrundeliegenden Zielprogramms, welches exploited werden soll - eine Touring-Vollständigkeit nicht grundsätzlich vorliegt.\\
+
+Anhand verschiedener konstruierter sowie realer Beispiele soll der PoC evaluiert und die Umsetzbarkeit eines ROP Compilers nachgewiesen werden.\\
+
+Zum Schluss werden die Ergebnisse mit anderen ROP Compilern verglichen und die Unterschiede in Performance sowie Qualität evaluiert.
+
+\section{Abgrenzung}
+
+In dieser Arbeit wird die Findung von ROP Gadgets nicht betrachtet, sondern durch bereits bestehende Projekte, welche innerhalb der Arbeit vorgestellt und referenziert werden sollen, zur weiteren Verarbeitung vorgegeben.\\
+
+Des Weiteren wird sich in dieser Arbeit ausschließlich auf eine Prozessorarchitektur spezifiziert, da diese sich tiefgehend in den zugrundeliegenden Techniken unterscheiden. Ein universeller ROP Compiler kann daher in dieser Arbeit nicht entwickelt werden, bildet aber Möglichkeit für nachfolgende Projekte.

@@ -1,0 +1,137 @@
+Date: 2014-11-15
+
+As the trend is to generate a ROP chain 'automatically', I have tried some
+things and one of my first conclusion was that using a SMT Solver is not so
+trivial...
+
+The main issue using a SMT solver was to keep an execution order - For example
+z3 can says 'sat' but you don't know how and with which order.
+
+So, I tried some things different without SMT solver.
+
+Based on my conclusion, I was convinced that I must keep a context of
+an execution (state machine). 
+
+So, first a have a list of gadgets semantics like:
+
+        gadgetsTable = [
+            ...
+            {'type': 'add', 'addr': 0x401207, 'W': 'eax', 'R': 0x32,  'instruction': 'add eax, 0x32 ; ret'},
+            {'type': 'add', 'addr': 0x402c09, 'W': 'eax', 'R': 0x45,  'instruction': 'add eax, 0x45 ; ret'},
+            {'type': 'add', 'addr': 0x403a0e, 'W': 'eax', 'R': 0x1,   'instruction': 'add eax, 0x1 ; ret'},
+            {'type': 'sub', 'addr': 0x404f1a, 'W': 'eax', 'R': 0x13,  'instruction': 'sub eax, 0x13 ; ret'},
+            {'type': 'sub', 'addr': 0x405212, 'W': 'eax', 'R': 0x2,   'instruction': 'sub eax, 0x2 ; ret'},
+            {'type': 'sub', 'addr': 0x406215, 'W': 'eax', 'R': 0x1,   'instruction': 'sub eax, 0x1 ; ret'},
+            {'type': 'mov', 'addr': 0x441ba7, 'W': 'ecx', 'R': 'eax', 'instruction': 'mov ecx, eax ; ret'},
+            {'type': 'mov', 'addr': 0x441ba7, 'W': 'edx', 'R': 'ecx', 'instruction': 'mov edx, ecx ; ret'},
+            ...
+        ]
+
+Then, I have a state machine:
+
+        self.ctx = {
+            'eax': 0,
+            'ebx': 0,
+            'ecx': 0,
+            'edx': 0,
+            'edi': 0,
+            'esi': 0,
+        }
+
+Now, I do a backtracking and stops when my targeted context is equal to the 
+current context. For each iteration, I keep an execution order - Which is
+my trace.
+
+Here is an example of what I got:
+
+    $ cat poc.py
+    [...]
+    if __name__ == '__main__':
+    
+        context = Context()
+    
+        # This is my current context
+        # Basically, this is all registers state at the crash point
+        context.ctx['eax'] = 0
+    
+        # This is my targeted context
+        context.tgt['eax'] = 511
+        context.solve()
+        sys.exit(0)
+    
+    $ time ./poc.py
+    [+] ROP chain generation based on backtracking and state machine
+    [+] Current context:    {'edi': 0, 'eax': 0, 'edx': 0, 'ebx': 0, 'esi': 0, 'ecx': 0}
+    [+] Target context:     {'edi': 0, 'eax': 511, 'edx': 0, 'ebx': 0, 'esi': 0, 'ecx': 0}
+    
+    [+] Gadgets available:
+            - 0x401207: add eax, 0x32 ; ret
+            - 0x402c09: add eax, 0x45 ; ret
+            - 0x403a0e: add eax, 0x1 ; ret
+            - 0x404f1a: sub eax, 0x13 ; ret
+            - 0x405212: sub eax, 0x2 ; ret
+            - 0x406215: sub eax, 0x1 ; ret
+            - 0x40721d: shl eax, 0x2 ; ret
+            - 0x40821b: shl eax, 0x3 ; ret
+            - 0x409220: shl eax, 0x4 ; ret
+            - 0x40a32e: shr eax, 0x2 ; ret
+            - 0x40b228: shr eax, 0x3 ; ret
+            - 0x40c12a: shr eax, 0x4 ; ret
+            - 0x441ba7: mov ecx, eax ; ret
+            - 0x441ba7: mov edx, ecx ; ret
+    
+    [+] Let's find a solution...
+    [+] Execution order found
+    
+            add eax, 0x32 ; ret
+            add eax, 0x45 ; ret
+            add eax, 0x1 ; ret
+            sub eax, 0x13 ; ret
+            sub eax, 0x2 ; ret
+            shr eax, 0x2 ; ret
+            shr eax, 0x4 ; ret
+            shl eax, 0x2 ; ret
+            shl eax, 0x3 ; ret
+            shl eax, 0x4 ; ret
+            sub eax, 0x1 ; ret
+    
+    [+] Solution found in 11 instructions
+    
+    [+] ROP chain:
+    
+            from struct import pack
+            p = ''
+            p += pack('<I', 0x401207) # add eax, 0x32 ; ret
+            p += pack('<I', 0x402c09) # add eax, 0x45 ; ret
+            p += pack('<I', 0x403a0e) # add eax, 0x1 ; ret
+            p += pack('<I', 0x404f1a) # sub eax, 0x13 ; ret
+            p += pack('<I', 0x405212) # sub eax, 0x2 ; ret
+            p += pack('<I', 0x40a32e) # shr eax, 0x2 ; ret
+            p += pack('<I', 0x40c12a) # shr eax, 0x4 ; ret
+            p += pack('<I', 0x40721d) # shl eax, 0x2 ; ret
+            p += pack('<I', 0x40821b) # shl eax, 0x3 ; ret
+            p += pack('<I', 0x409220) # shl eax, 0x4 ; ret
+            p += pack('<I', 0x406215) # sub eax, 0x1 ; ret
+    
+    ./poc.py  0.15s user 0.00s system 99% cpu 0.150 total
+    $
+
+So, it works fine and the execution time is pretty good (0.15s). Now, I just 
+have to restart the backtring using another trace order for find another way 
+with less than 11 instructions.
+ 
+The best solution with this gadgets list was:
+
+        Best solution for get eax = 511 
+        (0x1 << 9) - 1
+        add eax, 0x1 ; ret
+        shl eax, 0x3 ; ret
+        shl eax, 0x3 ; ret
+        shl eax, 0x3 ; ret
+        sub eax, 0x1 ; ret
+
+When I will manage to find a sweet solution for the ROP chain generation, I will
+write a blog post and add this feature in ROPgadget :).
+
+Cheers,
+

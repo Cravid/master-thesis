@@ -1,0 +1,54 @@
+\input{Kapitel/0-Config}	
+
+% eigene
+
+\usepackage{enumitem}% http://ctan.org/pkg/enumitem
+\usepackage{pdflscape}
+
+%
+
+\begin{document}
+
+\input{Kapitel/00-Deckblatt}
+\pagestyle{fancy}
+
+%%%%%%%%%% PRE %%%%%%%%%%%
+
+\tableofcontents{}
+%\addtocontents{toc}{\protect\addcontentsline{toc}{chapter}{Inhaltsverzeichnis}}
+
+%%%%%%%% MAIN %%%%%%%%%%%%%%%%%%%
+ 
+\include{Kapitel/1-Motivation}
+\include{Kapitel/2-Zielsetzung}
+\include{Kapitel/3-Stand_der_Forschung}
+\include{Kapitel/4-Vorarbeiten}
+\include{Kapitel/5-Vorgehensweisen_und_Methoden}
+\include{Kapitel/6-Zeit_und_Arbeitsplan}
+
+%%%%%%%%%%%%%%%%%%% POST %%%%%%%%%%%%%%%%%%%%%%
+
+% Beginn Anhang
+\appendix
+
+\include{Kapitel/7-Literaturverzeichnis}
+
+%\listoffigures{}
+%\addtocontents{lof}{\protect\addcontentsline{toc}{chapter}{Abbildungsverzeichnis}}
+
+%\listoftables{}
+%\addtocontents{lot}{\protect\addcontentsline{toc}{chapter}{Tabellenverzeichnis}}
+
+%\pagestyle{myheadings}\markboth{}{}
+%\phantomsection\listofsymbols
+%\addtocontents{los}{\protect\addcontentsline{toc}{chapter}{\listofsymbolsname}}
+%\phantomsection\listofakues
+%\addtocontents{lob}{\protect\addcontentsline{toc}{chapter}{\listofakuesname}}
+%\phantomsection\listoffremds
+%\addtocontents{low}{\protect\addcontentsline{toc}{chapter}{\listoffremdsname}}
+
+%\include{Kapitel/8-Abkkuerzungsverzeichnis}
+
+%\include{Kapitel/9-Appendix}
+
+\end{document}
