@@ -1,2 +1,9 @@
 \chapter{Vorgehensweisen und Methoden}
 
+Als konkrete Prozessorarchitektur soll voraussichtlich x64 und als Executable File Format ELF ausgewählt werden.\\
+
+Als Eingabeformat für die ROP Gadgets soll voraussichtlich JSON oder XML genutzt werden.\\
+
+Die Ermittlung und Festlegung einer konkreten Logik des Algorithmus zur Verkettung der ROP Gadgets zu einer ROP Chain muss im Rahmen der weiteren Bearbeitung noch erfolgen. Ideen hierzu bilden das Genetic Programming (GP) aus dem Bereich der künstlichen Intelligenz sowie Methoden aus dem Compilerbau, z.B. LALR-, Bottom-Up- oder Top-Down-Parser. Ebenfalls sollen Ideen aus den Bereichen Exhaustive Search, Backtracking sowie weiteren Graph und Tree Search Algorithms gesammelt und betrachtet werden.\\
+
+Format und Auswahl der Zielcodes (Payload) soll ebenfalls noch stattfinden. Eine Möglichkeit wäre dabei die Eröffnung einer Reverse- oder Bind-Shell, das Nachladen sowie Ausführen einer entfernten Datei oder einfache Manipulation bestimmter Ressourcen. Weitere Möglichkeiten sowie die Festlegung soll im Verlauf der Arbeit noch erfolgen.

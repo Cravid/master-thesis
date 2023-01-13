@@ -1,19 +1,22 @@
 \chapter{Ziele und Grenzen}
 
 \section{Zielsetzung}
+\label{sec:Zielsetzung}
 
-Im Rahmen dieser Arbeit soll ein ROP Compiler entwickelt werden, welcher als Eingaben auf zur Verfügung stehender Gadgets sowie vordefiniertem Code basierend eine Verkettung der Gadgets automatisiert durchführen soll. Die zur Verkettung benötigte Semantik sowie die zur Eingabe benötigten Formatregeln sollen ebenfalls innerhalb dieser Arbeit definiert und implementiert werden.\\
+Im Rahmen dieser Arbeit soll ein ROP Compiler entwickelt werden, welcher als Eingaben auf zur Verfügung stehender Gadgets sowie vordefinierten Zielcode (Payload) basierend eine Verkettung der Gadgets automatisiert durchführen soll. Der Compiler übersetzt anschließend den Payload mittels der verfügbaren Gadgets zu einer ROP Chain, welche semantisch gleich sind. Der zur Verkettung benötigte Algorithmus sowie die zur Eingabe benötigten Formatvorgaben sollen ebenfalls innerhalb dieser Arbeit definiert und implementiert werden.\\
 
-Ziel ist die Erstellung eines Proof-of-concept (PoC), welcher auf Basis einer zuvor ausgewählten spezifischen Prozessorarchitektur (X64, ARM32 oder ARM64) die grundsätzliche Umsetzbarkeit demonstrieren und Ausgangspunkt für weitere Arbeiten bilden soll.\\
+Ziel ist die Erstellung eines Proof-of-concept (PoC), welcher auf Basis einer zuvor ausgewählten spezifischen Prozessorarchitektur (z.B. x64, ARM32 oder ARM64) die grundsätzliche Umsetzbarkeit demonstrieren und Ausgangspunkt für weitere Arbeiten bilden soll.\\
 
-Außerdem soll der Grad der Berechenbarkeit erörtert und gezeigt werden, dass - abhängig vom zugrundeliegenden Zielprogramms, welches exploited werden soll - eine Touring-Vollständigkeit nicht grundsätzlich vorliegt.\\
+Außerdem soll der Grad der Berechenbarkeit erörtert und evaluiert werden, ob mittels der verfügbaren Gadgets eine ROP Chain für den gewünschten Payload gefunden werden kann.\\
 
 Anhand verschiedener konstruierter sowie realer Beispiele soll der PoC evaluiert und die Umsetzbarkeit eines ROP Compilers nachgewiesen werden.\\
 
-Zum Schluss werden die Ergebnisse mit anderen ROP Compilern verglichen und die Unterschiede in Performance sowie Qualität evaluiert.
+Zum Schluss werden die Ergebnisse mit anderen ROP Compilern verglichen und die Unterschiede in Performance sowie Ergebnissen evaluiert.
 
 \section{Abgrenzung}
 
-In dieser Arbeit wird die Findung von ROP Gadgets nicht betrachtet, sondern durch bereits bestehende Projekte, welche innerhalb der Arbeit vorgestellt und referenziert werden sollen, zur weiteren Verarbeitung vorgegeben.\\
+In dieser Arbeit wird die Suche von ROP Gadgets selbst nicht betrachtet, sondern durch bereits bestehende Projekte, welche innerhalb der Arbeit vorgestellt und referenziert werden sollen, zur weiteren Verarbeitung vorgegeben.\\
 
-Des Weiteren wird sich in dieser Arbeit ausschließlich auf eine Prozessorarchitektur spezifiziert, da diese sich tiefgehend in den zugrundeliegenden Techniken unterscheiden. Ein universeller ROP Compiler kann daher in dieser Arbeit nicht entwickelt werden, bildet aber Möglichkeit für nachfolgende Projekte.
+Das genaue Format des Payload ist in dieser Arbeit noch zu definieren und könnte in Form von Pseudocode oder Konfigurationsvorgaben erfolgen. Eine universelle Übersetzung von Programmcode (z.B. C) kann innerhalb dieser Arbeit voraussichtlich nicht erfolgen, und würde Gegenstand weiterer Arbeiten bilden.\\
+
+Aufgrund von grundsätzlichen Unterschieden in den verschiedenen CPU-Architekturen, Befehlssätzen sowie Executable File Formats (z.B. ELF, Mach-O, PE, usw.) wird sich in dieser Arbeit auf eine Architektur sowie ein File Format fokussiert. Ein universeller ROP Compiler für beliebige Architekturen kann innerhalb dieser Arbeit nicht entwickelt werden. Nachfolgende Arbeiten und Projekte können aber auf dieser Basis aufbauen.
