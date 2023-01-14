@@ -4,19 +4,16 @@ ROP und JOP sind Techniken, welche bereits seit Ende der 90er Jahre genutzt werd
 
 Für das Auffinden von Gadgets gibt es ebenfalls bekannte Projekte, welche in der Lage sind teilweise für verschiedene Prozessorarchitekturen Gadgets aus einer gegebenen Binary zu finden und anzeigen zu lassen. Ein Beispiel für solch ein Projekt wären ROPgadget \cite{JonathanSalwan/ROPgadget} oder Ropper \cite{sashs/Ropper}.\\
 
-GENROP \cite{branting2022rop}
+\emph{Q} \cite{schwartz2011q} war eine Forschungsarbeit der Carnegie Mellon University in Pittsburgh. In diesem Projekt wurden \enquote{semantic program verification techniques} genutzt, um einen gegebenen Exploit, welcher durch Sicherheitsmechanismen wie W$\oplus$X verhindert wird, in eine ROP Chain abzubilden, um den \enquote{Exploit zu härten} (exploit hardening). Ansätze der Semantik zur Verkettung können eventuell für diese Arbeit interessant werden.\\
 
-MIT ROP Compiler \cite{stewart2015rop}
+angrop \cite{angr/angrop} ist ein Tool zum Auffinden von ROP Gadgets. Außerdem soll es ROP Chains automatisch verketten können. Es nutzt das Binary Analysis Framework angr \cite{angr}, welches von verschiedenen Forschern vom Computer Security Lab der UC Santa Barbara sowie dem SEFCOM der Arizona State University entwickelt wird. Gefördert wurde das Projekt von der U.S. Regierung. Die Ergebnisse wurden unter open source gestellt \cite{shoshitaishvili2016state}. angrop verfolgt den gleichen Ansatz von \emph{Q} mit einigen kleineren Abweichungen und Erweiterungen.\\
 
-angrop \cite{angr/angrop}
+\emph{GENROP} \cite{branting2022rop} war Thema einer Masterthesis an der Linköping University in Schweden. Das Thema von GENROP war sehr ähnlich zu dieser Arbeit und verfolgte den Ansatz Genetic Programming zum Verketten der ROP Gadgets zu nutzen. Das Ergebnis von GENROP war allerdings, dass die eigentlichen Kernkonzepte von Genetic Programming am Ende nicht mehr richtig genutzt werden konnten, um das Problem zu lösen, da der Algorithmus zu sehr gelenkt werden musste. Genauere Einarbeitung und Analyse, welche Probleme bei GENROP auftraten, müssen noch erfolgen. Die Implementation des Projekts ist allerdings nicht öffentlich verfügbar.\\
 
-SpecROP \cite{bhattacharyya2020specrop}
+Pure-Call Oriented Programming (PCOP) \cite{sadeghi2018pure} fokussiert sich auf Jump-oriented Programming (JOP) und somit Gadgets, welche in einer \code{call} Anweisung enden. Call Anweisungen werden vom Prozessor umgesetzt, indem die Speicheradresse der auf den Call direkt folgenden Anweisung auf den Memory Stack gelegt und eine \code{jmp} Anweisung zu der gewünschten Speicheradresse ausgeführt wird. Dadurch, dass der Stack verändert wird, ergeben sich Seiteneffekte, welche die Gadget Chain stören können. PCOP soll einige dieser Seiteneffekte beheben können. Außerdem soll PCOP Touring-Vollständigkeit besitzen, was bedeuten würde, dass beliebiger Code hierdurch emuliert werden könnte. Die genauen Ansätze in diesem Artikel müssen im weiteren Verlauf noch herausgearbeitet werden.\\
 
-PCOP \cite{sadeghi2018pure}
+Am Massachusetts Institue of Technology (MIT) wurde ein ROP Compiler \cite{stewart2015rop} erarbeitet, welcher die verfügbaren Gadgets zuerst klassifiziert (basierend auf Logik aus \emph{Q} \cite{schwartz2011q}) und anschließend über die klassifizierten Gadgets iteriert. Außerdem soll der vom MIT sogenannte \emph{Gadget Scheduler} auch bestimmte Speicherregister beobachten, sodass keine gegenseitigen Überschreibungen stattfinden sollen. Das Projekt soll auf konstruierten Beispielen sowie auf \code{rsync} als real-world Binary erfolgreich als PoC umgesetzt werden. Leider ist lediglich der Artikel und nicht die Codebasis öffentlich verfügbar.\\
 
-Q: \cite{schwartz2011q}
+Multi-Architecture JOP and ROP Chain Assembler (MAJORCA) \cite{nurmukhametov2021majorca} war ein Projekt des Moscow Institue of Physiscs and Technology, welches \enquote{spezielle Graphe zur Suche nach \code{mov} Ketten} zur Bildung der Gadget Chains genutzt hat. Während sich dieses Projekt allerdings auf die x86 Architektur fokussiert, können Ideen und Ansätze hieraus eventuell auch für diese Masterthesis interessant sein.\\
 
-MAJORCA \cite{nurmukhametov2021majorca}
-
-
-ROPecker \cite{cheng2014ropecker}
+Im Rahmen der weiteren Vor- und Recherchearbeiten sollen die einzelnen Techniken der vorgestellten sowie weiterer Arbeiten genauer herausgearbeitet, verglichen sowie für die Bildung der Semantik in dieser Arbeit herangezogen werden.
