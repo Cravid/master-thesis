@@ -2,11 +2,11 @@
 
 \section{Zielsetzung}
 
-Im Rahmen dieser Arbeit soll ein ROP Compiler entwickelt werden, welcher als Eingaben auf zur Verfügung stehender Gadgets sowie vordefinierten Zielcode (Payload) basierend eine Verkettung der Gadgets automatisiert durchführen soll. Der Compiler übersetzt anschließend den Payload mittels der verfügbaren Gadgets zu einer ROP Chain, welche semantisch gleich sind. Der zur Verkettung benötigte Algorithmus sowie die zur Eingabe benötigten Formatvorgaben sollen ebenfalls innerhalb dieser Arbeit definiert und implementiert werden.\\
+Im Rahmen dieser Arbeit soll ein ROP Compiler entwickelt werden, welcher als Eingaben auf zur Verfügung stehender Gadgets sowie vordefinierten Zielcode (Payload) basierend eine Verkettung der Gadgets automatisiert durchführen soll. Der Compiler übersetzt anschließend den Payload mittels der verfügbaren Gadgets zu einer ROP Chain, welche zum zu übersetzenden Code semantisch gleich ist. Der zur Verkettung benötigte Algorithmus sowie die zur Eingabe benötigten Formatvorgaben sollen ebenfalls innerhalb dieser Arbeit definiert und implementiert werden.\\
 
 Ziel ist die Erstellung eines Proof-of-concept (PoC), welcher auf Basis einer zuvor ausgewählten spezifischen Prozessorarchitektur (z.B. x64, ARM32 oder ARM64) die grundsätzliche Umsetzbarkeit demonstrieren und Ausgangspunkt für weitere Arbeiten bilden soll.\\
 
-Außerdem soll der Grad der Berechenbarkeit erörtert und evaluiert werden, ob mittels der verfügbaren Gadgets eine ROP Chain für den gewünschten Payload gefunden werden kann.\\
+Außerdem soll der Grad der Berechenbarkeit ermittelt und evaluiert werden, ob mittels der verfügbaren Gadgets eine ROP Chain für den gewünschten Payload gefunden werden kann.\\
 
 Anhand verschiedener konstruierter sowie realer Beispiele soll der PoC evaluiert und die Umsetzbarkeit eines ROP Compilers nachgewiesen werden.\\
 
@@ -14,7 +14,7 @@ Zum Schluss werden die Ergebnisse mit anderen ROP Compilern verglichen und die U
 
 \section{Abgrenzung}
 
-In dieser Arbeit wird die Suche von ROP Gadgets selbst nicht betrachtet, sondern durch bereits bestehende Projekte, welche innerhalb der Arbeit vorgestellt und referenziert werden sollen, zur weiteren Verarbeitung vorgegeben.\\
+In dieser Arbeit wird die Suche von ROP Gadgets selbst nicht betrachtet. Projekte und Vorarbeiten zu dieser Thematik sind bereits gegeben und dienen als Basis für diese Arbeit.\\
 
 Das genaue Format des Payload ist in dieser Arbeit noch zu definieren und könnte in Form von Pseudocode oder Konfigurationsvorgaben erfolgen. Eine universelle Übersetzung von Programmcode (z.B. C) kann innerhalb dieser Arbeit voraussichtlich nicht erfolgen, und würde Gegenstand weiterer Arbeiten bilden.\\
 
